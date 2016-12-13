@@ -22,11 +22,15 @@ var stringifyJSON = function(obj) {
       return stringifyJSON(item) ;
     })+']';
   }
-  else{
-    //for(var val in obj){
-      return "{" + obj.keys.map(function(key){
-        return stringifyJSON(key) + ':' +stringifyJSON(obj[key]); 
-      }) + "}"; 
-  }
 
+    var newObj = [];
+    for(var key in obj){
+      if (obj[key]=== undefined || typeof(obj)=== 'function'){
+        return '{}';
+      }else{
+        newObj.push ( stringifyJSON(key) + ':' +stringifyJSON(obj[key])); 
+      }
+    }
+    return '{' + newObj + '}';
+  
 };
